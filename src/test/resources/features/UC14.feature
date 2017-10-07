@@ -60,7 +60,6 @@ Funcionalidade: : UC-14-Calcular-Frete-E-Tempo-De-Entrega
       | Rua Carlos Gomes | Campinas |
     Quando eu pesquiso o preço do frete para o endereço e a lista de produtos e o tipo de entrega
     Então a mensagem de erro dos correios é do código "400"
-    E armazena essa informação no banco de dados
 
   Cenario: Fluxo Alternativo B2
     Dado Lista de Produtos:
@@ -78,4 +77,3 @@ Funcionalidade: : UC-14-Calcular-Frete-E-Tempo-De-Entrega
       | Rua Carlos Gomes | Campinas |
     Quando eu pesquiso o preço do frete para o endereço e a lista de produtos e o tipo de entrega
     Então a mensagem de erro dos correios é do código "500"
-    E armazena essa informação no banco de dados
