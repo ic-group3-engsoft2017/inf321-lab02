@@ -18,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.mockito.Mockito.when;
 
@@ -48,9 +49,14 @@ public class UC14Steps {
     }
 
     @Dado("^Lista de Produtos:$")
-    public void listaDeProdutos() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void listaDeProdutos(List<Map<String,String>> resultado) {
+    	for (Map<String,String> prodValues : resultado) {
+    		
+    		Produto produto = new Produto(Double.valueOf(prodValues.get("Peso")),Double.valueOf(prodValues.get("Largura")),
+    				Double.valueOf(prodValues.get("Altura")), Double.valueOf(prodValues.get("Comprimento")));
+        	this.produtoList.add(produto);    		
+    	}
+    	
     }
 
 
