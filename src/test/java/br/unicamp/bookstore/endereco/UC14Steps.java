@@ -2,6 +2,7 @@ package br.unicamp.bookstore.endereco;
 
 import br.unicamp.bookstore.Configuracao;
 import br.unicamp.bookstore.model.Endereco;
+import br.unicamp.bookstore.model.Produto;
 import br.unicamp.bookstore.service.BuscaEnderecoService;
 import br.unicamp.bookstore.service.FreteService;
 import com.github.tomakehurst.wiremock.WireMockServer;
@@ -12,6 +13,8 @@ import cucumber.api.java.pt.Então;
 import cucumber.api.java.pt.Quando;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+
+import java.util.List;
 
 public class UC14Steps {
 
@@ -24,6 +27,8 @@ public class UC14Steps {
     private FreteService freteService;
 
     private Endereco endereco;
+
+    private List<Produto> produtoList;
 
     private String cep;
 
