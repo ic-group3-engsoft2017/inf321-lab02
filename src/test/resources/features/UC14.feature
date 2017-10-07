@@ -42,7 +42,9 @@ Funcionalidade: : UC-14-Calcular-Frete-E-Tempo-De-Entrega
       | 100   | x     |
     E armazena essa informação no banco de dados
 
-  Cenario: Fluxo Alternativo B
+
+
+  Cenario: Fluxo Alternativo B1
     Dado Lista de Produtos:
       | Peso      | Altura    | Largura     | Comprimento |
       | 100       | 120       | 14          | 10          |
@@ -57,7 +59,5 @@ Funcionalidade: : UC-14-Calcular-Frete-E-Tempo-De-Entrega
       | Logradouro       | Cidade   |
       | Rua Carlos Gomes | Campinas |
     Quando eu pesquiso o preço do frete para o endereço e a lista de produtos e o tipo de entrega
-    Então o resultado deve ser
-      | Preço | Prazo |
-      | 100   | x     |
+    Então a mensagem de erro dos correios é do código "400"
     E armazena essa informação no banco de dados

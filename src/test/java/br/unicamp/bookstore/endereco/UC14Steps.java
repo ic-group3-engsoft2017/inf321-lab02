@@ -38,4 +38,10 @@ public class UC14Steps {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
+
+    @Então("^a mensagem de erro dos correios é do código \"([^\"]*)\"$")
+    public void aMensagemDeErroDosCorreiosÉDoCódigo(String errorCode) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
 }
