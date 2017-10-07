@@ -1,10 +1,17 @@
 package entrega;
 
+import org.mockito.Mockito;
+
+import br.unicamp.exemplo.dao.ConsultaEntregaDAO;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import cucumber.api.java.en.Then;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.But;
+
+@Before
+public void setUp() {
+	calcDAO = Mockito.mock(ConsultaEntregaDAO.class);
+}
 
 public class ConsultaEntregaStep {
   @Given("^Eu tenho um Código de rastreio válido$")

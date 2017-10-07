@@ -9,8 +9,8 @@ Funcionalidade: Consultar Entrega
       | codigorastreio | AA123456789BR |
     Quando eu informo o Codigo de rastreio na busca de status de entrega
     Então o resultado deve ser o:
-      | Codigo de rastreamento       | Status              |
-      | AA123456789BR					       | EntregueComSucesso  |
+      | Codigo de rastreamento       | Status              | Dados Frete | Tempo Entrega
+      | AA123456789BR					       | EntregueComSucesso  |  R$ 22,00   |  3 dias
 
   Cenário: Consultar uma entrega com Codigo de rastreamento inválido.
     Dado Eu tenho um Código de rastreio inválido:
