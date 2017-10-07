@@ -5,33 +5,26 @@ Funcionalidade: Consultar Entrega
   Para que eu possa usar o endereço para fazer um pedido
 
   Cenário: Consultar uma entrega válida [código do pedido existente]
-    Dado um CEP válido:
-      | cep | 13083970 |
-    Quando eu informo o CEP na busca de endereço
-    Então o resultado deve ser o endereço:
-      | Logradouro       | Cidade   |
-      | Rua Carlos Gomes | Campinas |
+    Dado um Código de rastreio válido:
+      | codigorastreio | AA123456789BR |
+    Quando eu informo o Codigo de rastreio na busca de status de entrega
+    Então o resultado deve ser o:
+      | Codigo de rastreamento       | Status              |
+      | AA123456789BR					       | EntregueComSucesso  |
 
-  Cenário: Consultar uma entrega não válida [código do pedido inexistente]
-    Dado um CEP não existente:
-      | cep | 99999999 |
-    Quando eu informo o CEP na busca de endereço
-    Então o retorno deve conter um valor de erro igual a "true"
-
-  Cenário: Consultar uma entrega com Pedido inválido.
-    Dado um CEP inválido:
-      | cep | 1234567890 |
-    Quando eu informo o CEP na busca de endereço
+  Cenário: Consultar uma entrega com Codigo de rastreamento inválido.
+    Dado um Código de rastreio inválido:
+      | codigorastreio | 123 |
+    Quando eu informo o Codigo de rastreamento na busca de status de entrega  
     Então uma exceção deve ser lançada com a mensagem de erro:
     """
-    O CEP informado é invalido
+    Codigo de rastreio invalido
     """
 
-  Cenário: Serviço ConsultaEntrega não responde
-    Dado um CEP válido:
-      | cep | 13083970 |
-    E o serviço ViaCep não esta respondendo
-    Quando eu informo o CEP na busca de endereço
+  Cenário: Serviço Consulta Status Entrega não responde
+      Dado um Código de rastreio válido:
+      | codigorastreio | AA123456789BR |
+    Quando eu informo o Codigo de rastreio na busca de status de entrega
     Então uma exceção deve ser lançada com a mensagem de erro:
     """
     Serviço indisponivel
