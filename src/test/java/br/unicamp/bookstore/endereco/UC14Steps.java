@@ -1,12 +1,33 @@
 package br.unicamp.bookstore.endereco;
 
+import br.unicamp.bookstore.Configuracao;
+import br.unicamp.bookstore.model.Endereco;
+import br.unicamp.bookstore.service.BuscaEnderecoService;
+import br.unicamp.bookstore.service.FreteService;
+import com.github.tomakehurst.wiremock.WireMockServer;
 import cucumber.api.PendingException;
 import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.E;
 import cucumber.api.java.pt.Então;
 import cucumber.api.java.pt.Quando;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 public class UC14Steps {
+
+    public WireMockServer wireMockServer;
+
+    @Mock
+    private Configuracao configuration;
+
+    @InjectMocks
+    private FreteService freteService;
+
+    private Endereco endereco;
+
+    private String cep;
+
+
 
     @Dado("^Lista de Produtos:$")
     public void listaDeProdutos() {
@@ -44,5 +65,5 @@ public class UC14Steps {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
-    
+
 }
