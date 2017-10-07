@@ -12,6 +12,7 @@ import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.E;
 import cucumber.api.java.pt.Então;
 import cucumber.api.java.pt.Quando;
+import org.junit.After;
 import org.junit.Before;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -20,6 +21,9 @@ import org.mockito.MockitoAnnotations;
 import java.util.List;
 import java.util.Map;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlMatching;
 import static org.mockito.Mockito.when;
 
 public class UC14Steps {
@@ -86,11 +90,18 @@ public class UC14Steps {
 
     @Então("^a mensagem de erro dos correios é do código \"([^\"]*)\"$")
     public void aMensagemDeErroDosCorreiosÉDoCódigo(String errorCode) throws Throwable {
-        
+        wireMockServer.stubFor(get(urlMatching("/ws/.*"))
+                .willReturn(aResponse().withStatus(Integer.valueOf(errorCode)))
+        .wit
     }
 
     @E("^um tipo de entrega \"([^\"]*)\"$")
     public void umTipoDeEntrega(String tipoEntrega) throws Throwable {
         tipoEntregaEnum = TipoEntregaEnum.valueOf(tipoEntrega);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        wireMockServer.stop();
     }
 }
