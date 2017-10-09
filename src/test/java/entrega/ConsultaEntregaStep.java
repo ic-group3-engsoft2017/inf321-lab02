@@ -1,19 +1,30 @@
 package entrega;
 
 import org.mockito.Mockito;
-
-import br.unicamp.exemplo.dao.ConsultaEntregaDAO;
+import br.unicamp.bookstore.*;
+import br.unicamp.bookstore.dao.ConsultaEntregaDAO;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import cucumber.api.java.en.Then;
 
-@Before
-public void setUp() {
-	calcDAO = Mockito.mock(ConsultaEntregaDAO.class);
-}
 
 public class ConsultaEntregaStep {
+	
+   private ConsultaEntregaDAO ConsultaEntregaDAO;
+	
+	private br.unicamp.bookstore.ConsultaEntrega ConsultaEntrega;
+	
+	private Throwable throwable;
+	
+	@Before
+	public void setUp() {
+		ConsultaEntregaDAO = Mockito.mock(ConsultaEntregaDAO.class);
+		ConsultaEntrega = new ConsultaEntrega(ConsultaEntregaDAO);
+
+	}
+
+	
   @Given("^Eu tenho um Código de rastreio válido$")
   public void eu_tenho_codigo_rastreio_valido() throws Throwable {
   }
