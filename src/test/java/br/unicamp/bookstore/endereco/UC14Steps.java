@@ -63,13 +63,6 @@ public class UC14Steps {
     	
     }
 
-
-    @E("^um tipo de entrega:$")
-    public void umTipoDeEntrega() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
-
     @Quando("^eu pesquiso o preço do frete para o endereço e a lista de produtos e o tipo de entrega$")
     public void euPesquisoOPreçoDoFreteParaOEndereçoEAListaDeProdutosEOTipoDeEntrega() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
@@ -77,9 +70,9 @@ public class UC14Steps {
     }
 
     @Então("^o resultado deve ser$")
-    public void oResultadoDeveSer() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void oResultadoDeveSer(String cep) throws Throwable {
+		wireMockServer.stubFor(get(urlMatching("/ws/" + cep + ".*"))
+				.willReturn(aResponse().withStatus(400)));
     }
 
     @E("^armazena essa informação no banco de dados$")
@@ -91,8 +84,8 @@ public class UC14Steps {
     @Então("^a mensagem de erro dos correios é do código \"([^\"]*)\"$")
     public void aMensagemDeErroDosCorreiosÉDoCódigo(String errorCode) throws Throwable {
         wireMockServer.stubFor(get(urlMatching("/ws/.*"))
-                .willReturn(aResponse().withStatus(Integer.valueOf(errorCode)))
-        .wit
+        		.willReturn(aResponse().withStatus(Integer.valueOf(errorCode))));
+        
     }
 
     @E("^um tipo de entrega \"([^\"]*)\"$")
