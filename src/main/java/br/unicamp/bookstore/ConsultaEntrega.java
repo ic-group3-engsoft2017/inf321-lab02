@@ -14,21 +14,21 @@ public class ConsultaEntrega implements ConsultaEntregaDAO {
 	}
 	
 	@Override
-	public boolean salvarDadosConsultaEntrega(Double valorFrete, Integer diasEntrega, String codigoRastreio) {
+	public void salvarDadosConsultaEntrega(Double valorFrete, Integer diasEntrega, String codigoRastreio) {
 		// TODO Auto-generated method stub
-		return false;
+		return;
 	}
 
 	@Override
-	public boolean removerDadosConsultaEntrega(String codigoRastreio) {
+	public void removerDadosConsultaEntrega(String codigoRastreio) {
 		// TODO Auto-generated method stub
-		return false;
+		return;
 	}
 
 	@Override
-	public boolean atualizarDadosConsultaEntrega(Double valorFrete, Integer diasEntrega, String codigoRastreio) {
+	public void atualizarDadosConsultaEntrega(Double valorFrete, Integer diasEntrega, String codigoRastreio) {
 		// TODO Auto-generated method stub
-		return false;
+		return;
 	}
 
 	@Override

@@ -3,7 +3,7 @@ package br.unicamp.bookstore.model;
 public enum StatusEntregaEnum {
 	A_ENVIAR("0"),
 	EM_ANDAMENTO("1"),
-	ENTREGE("2");	
+	ENTREGUE("2");	
 	String statusentrega;
 	
 	private StatusEntregaEnum(String statusentrega) {

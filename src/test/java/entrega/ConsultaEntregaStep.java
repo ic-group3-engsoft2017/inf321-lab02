@@ -40,8 +40,6 @@ public class ConsultaEntregaStep {
 	
 	private StatusEntregaEnum statusentrega;
 	
-	
-
 	private br.unicamp.bookstore.ConsultaEntrega ConsultaEntrega;
 
 	private Throwable throwable;
@@ -61,7 +59,7 @@ public class ConsultaEntregaStep {
 
 	}
 
-	@Given("^Eu tenho um Código de rastreio válido$")
+	@Given("^Eu tenho um Codigo de rastreio valido$")
 	public void eu_tenho_codigo_rastreio_valido() throws Throwable {
 
 		String codigoRastreio = "";
@@ -71,7 +69,7 @@ public class ConsultaEntregaStep {
 
 	}
 
-	@Given("^Eu tenho um Código de rastreio inválido$")
+	@Given("^Eu tenho um Codigo de rastreio invalido$")
 	public void eu_tenho_codigo_rastreio_invalido(Map<String, String> map) throws Throwable {
 
 		codigorastreio = map.get("codigorastreio");
@@ -89,12 +87,12 @@ public class ConsultaEntregaStep {
 	public void o_resultado_deve_ser() throws Throwable {
 	}
 
-	@Then("^uma exceção deve ser lançada com a mensagem de erro Codigo de rastreio invalido$")
+	@Then("^uma excecao deve ser lancada com a mensagem de erro Codigo de rastreio invalido$")
 	public void uma_execao_deve_ser_lancada_codigo_invalido(String message) throws Throwable {
 		assertThat(throwable).hasMessage(message);
 	}
 
-	@Then("^ uma exceção deve ser lançada com a mensagem de erro Serviço indisponivel$")
+	@Then("^ uma excecao deve ser lancada com a mensagem de erro Servico indisponivel$")
 	public void uma_execao_deve_ser_lancada_servico_indisponivel() throws Throwable {
 		wireMockServer.stubFor(get(urlMatching("/ws/.*")).willReturn(aResponse().withStatus(200).withFixedDelay(6000)
 				.withBodyFile("resultado-pesquisa-ConsultaEntrega_out.xml")));
