@@ -17,8 +17,7 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 
 import br.unicamp.bookstore.*;
 import br.unicamp.bookstore.dao.ConsultaEntregaDAO;
-import br.unicamp.bookstore.model.StatusEntrega;
-import br.unicamp.bookstore.service.BuscaEnderecoService;
+import br.unicamp.bookstore.model.StatusEntregaEnum;
 import br.unicamp.bookstore.service.BuscaStatusEntregaService;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -39,7 +38,7 @@ public class ConsultaEntregaStep {
 
 	private String codigorastreio;
 	
-	private StatusEntrega statusentrega;
+	private StatusEntregaEnum statusentrega;
 	
 	
 

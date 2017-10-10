@@ -1,15 +1,15 @@
 package br.unicamp.bookstore.service;
 
 import br.unicamp.bookstore.Configuracao;
-import br.unicamp.bookstore.model.StatusEntrega;
+import br.unicamp.bookstore.model.StatusEntregaEnum;
 
 public class BuscaStatusEntregaService {
 	
 	  private Configuracao configuracao;
 
-	  public StatusEntrega buscar(String cep) throws Exception {
-	    String url = String.format("%s/%s/xml", configuracao.getStatusEntregaUrl(), cep);
-	    return new RemoteService().getAndParseXml(url, StatusEntrega.class);
+	  public StatusEntregaEnum buscar(String statusentrega) throws Exception {
+	    String url = String.format("%s/%s/xml", configuracao.getStatusEntregaUrl(), statusentrega);
+	    return new RemoteService().getAndParseXml(url, StatusEntregaEnum.class);
 	  }
 
 }
