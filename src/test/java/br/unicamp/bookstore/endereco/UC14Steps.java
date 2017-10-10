@@ -1,7 +1,9 @@
 package br.unicamp.bookstore.endereco;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import br.unicamp.bookstore.Configuracao;
 import br.unicamp.bookstore.model.Endereco;
+import br.unicamp.bookstore.model.PrecoPrazo;
 import br.unicamp.bookstore.model.Produto;
 import br.unicamp.bookstore.model.TipoEntregaEnum;
 import br.unicamp.bookstore.service.BuscaEnderecoService;
@@ -64,9 +66,12 @@ public class UC14Steps {
     }
 
     @Quando("^eu pesquiso o preço do frete para o endereço e a lista de produtos e o tipo de entrega$")
-    public void euPesquisoOPreçoDoFreteParaOEndereçoEAListaDeProdutosEOTipoDeEntrega() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void euPesquisoOPreçoDoFreteParaOEndereçoEAListaDeProdutosEOTipoDeEntrega(List<Map<String,String>> result) throws Throwable {
+       PrecoPrazo precoprazo = freteService.getPrecoPrazo(this.endereco, this.produtoList);
+       for (Map<String,String> resultado : result) {
+       assertThat(resultado.get("Preco")).isEqualTo(precoprazo.getValorFrete());
+       assertThat(resultado.get("Prazo")).isEqualTo(precoprazo.getPrazoEntrega());
+       }
     }
 
     @Então("^o resultado deve ser$")
