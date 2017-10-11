@@ -69,7 +69,7 @@ public class UC14Steps {
 
     @Quando("^eu pesquiso o preço do frete para o endereço e a lista de produtos e o tipo de entrega$")
     public void euPesquisoOPreçoDoFreteParaOEndereçoEAListaDeProdutosEOTipoDeEntrega() throws Throwable {
-        precoPrazo = freteService.getPrecoPrazo(this.endereco, this.produtoList);
+        precoPrazo = freteService.getPrecoPrazo(endereco, produtoList);
     }
 
     @Então("^o resultado deve ser$")
@@ -105,6 +105,6 @@ public class UC14Steps {
     @Então("^o resultado deve ser:$")
     public void oResultadoDeveSer(Map<String, String> result) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-
+        assertThat(result.size()).isEqualTo(1);
     }
 }
