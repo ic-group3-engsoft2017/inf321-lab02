@@ -9,8 +9,6 @@ import java.util.List;
 public class FreteService extends RemoteService {
 
     public PrecoPrazo getPrecoPrazo(Endereco endereco, List<Produto> produtoList) {
-
-
         return new PrecoPrazo();
     }
 }
