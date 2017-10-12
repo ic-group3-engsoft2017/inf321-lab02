@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+    <soap12:Body>
+        <cResultado>
+            <Servicos>
+                <cServico>
+                    <Codigo>123</Codigo>
+                    <Valor>0</Valor>
+                    <PrazoEntrega>0</PrazoEntrega>
+                    <ValorMaoPropria>0</ValorMaoPropria>
+                    <ValorAvisoRecebimento>0</ValorAvisoRecebimento>
+                    <ValorValorDeclarado>0</ValorValorDeclarado>
+                    <EntregaDomiciliar/><EntregaSabado/>
+                    <Erro>001</Erro>
+                    <MsgErro>Codigo de servico invalido.</MsgErro>
+                    <ValorSemAdicionais>0</ValorSemAdicionais>
+                    <obsFim/>
+                </cServico>
+            </Servicos>
+        </cResultado>
+    </soap12:Body>
+</soap12:Envelope>
