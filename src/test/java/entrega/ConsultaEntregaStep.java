@@ -6,6 +6,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlMatching;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.ThrowableAssert.catchThrowable;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mockito.InjectMocks;
@@ -17,12 +18,12 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 
 import br.unicamp.bookstore.*;
 import br.unicamp.bookstore.dao.ConsultaEntregaDAO;
-import br.unicamp.bookstore.model.StatusEntregaEnum;
 import br.unicamp.bookstore.service.BuscaStatusEntregaService;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import cucumber.api.java.en.Then;
+import br.unicamp.bookstore.model.*;
 
 public class ConsultaEntregaStep {
 
@@ -38,7 +39,9 @@ public class ConsultaEntregaStep {
 
 	private String codigorastreio;
 	
-	private StatusEntregaEnum statusentrega;
+	private Rastreio Rastreio;
+	
+	//private StatusEntregaEnum statusentrega;
 	
 	private br.unicamp.bookstore.ConsultaEntrega ConsultaEntrega;
 
@@ -56,6 +59,7 @@ public class ConsultaEntregaStep {
 		Mockito.when(configuration.getStatusEntregaUrl()).thenReturn("http://localhost:9876/ws");
 
 		codigorastreio = null;
+		this.Rastreio = new Rastreio("123","Entregue");
 
 	}
 
@@ -80,11 +84,15 @@ public class ConsultaEntregaStep {
 
 	@When("^eu informo o Codigo de rastreio na busca de status de entrega$")
 	public void eu_informo_codigo_rastreio() throws Throwable {
-		throwable = catchThrowable(() -> this.statusentrega = buscaStatusEntregaService.buscar(codigorastreio));
+		throwable = catchThrowable(() -> this.Rastreio =  buscaStatusEntregaService.buscar(codigorastreio));
 	}
 
 	@Then("^o resultado deve ser o$")
-	public void o_resultado_deve_ser() throws Throwable {
+	public void o_resultado_deve_ser(List<Map<String,String>> resultado) throws Throwable {
+			assertThat(this.Rastreio.getCodigoRastreio()).isEqualTo(resultado.get(0).get("codigorastreio"));
+			assertThat(Rastreio.getStatusEntrega()).isEqualTo(resultado.get(0).get("status"));
+			assertThat(throwable).isNull();
+		
 	}
 
 	@Then("^uma excecao deve ser lancada com a mensagem de erro Codigo de rastreio invalido$")
