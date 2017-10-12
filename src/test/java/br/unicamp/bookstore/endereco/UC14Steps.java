@@ -18,6 +18,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
@@ -39,13 +40,14 @@ public class UC14Steps {
     @InjectMocks
     private FreteService freteService;
 
+    @Mock
+    private BuscaEnderecoService buscaEnderecoService;
+
     private Endereco endereco;
 
     private List<Produto> produtoList = new ArrayList<>();
 
     private PrecoPrazo precoPrazo;
-
-    private String cep;
 
     private TipoEntregaEnum tipoEntregaEnum;
 
@@ -54,18 +56,47 @@ public class UC14Steps {
         wireMockServer = new WireMockServer(9875);
         wireMockServer.start();
         MockitoAnnotations.initMocks(this);
-        when(configuration.getConsultaPrecoPrazoUrl()).thenReturn("http://localhost:9875/ws");
+        Mockito.when(configuration.getBuscarEnderecoUrl()).thenReturn("http://localhost:9875/ws/cep");
+        MockitoAnnotations.initMocks(this);
+        when(configuration.getConsultaPrecoPrazoUrl()).thenReturn("http://localhost:9875/ws/calcprecoprazo");
     }
 
+    /** Fluxo Basico */
+
     @Dado("^Lista de Produtos:$")
-    public void listaDeProdutos(List<Map<String,String>> resultado) {
-    	for (Map<String,String> prodValues : resultado) {
-    		Produto produto = new Produto(Double.valueOf(prodValues.get("Peso")),Double.valueOf(prodValues.get("Largura")),
-    				Double.valueOf(prodValues.get("Altura")), Double.valueOf(prodValues.get("Comprimento")));
+    public void listaDeProdutos(List<List<String>> resultado) {
+        // Peso      | Altura    | Largura     | Comprimento |
+    	for (List<String> prodValues : resultado) {
+    	    if(prodValues.contains("Peso")) {
+    	        continue;
+            }
+            Produto produto = new Produto(
+                    Double.valueOf(prodValues.get(0)),
+                    Double.valueOf(prodValues.get(1)),
+    				Double.valueOf(prodValues.get(2)),
+                    Double.valueOf(prodValues.get(3)));
         	produtoList.add(produto);
     	}
-    	
+        assertThat(produtoList.size()).isEqualTo(3);
     }
+
+
+    @E("^um tipo de entrega \"([^\"]*)\"$")
+    public void umTipoDeEntrega(String tipoEntrega) throws Throwable {
+        tipoEntregaEnum = TipoEntregaEnum.valueOf(tipoEntrega);
+    }
+
+    @E("^um endereço com CEP \"([^\"]*)\"$")
+    public void umEndereçoComCEP(String cep) throws Throwable {
+        when(buscaEnderecoService.buscar(cep)).thenReturn(endereco);
+        this.endereco = buscaEnderecoService.buscar(cep);
+    }
+
+    @Então("^o resultado deve ser:$")
+    public void oResultadoDeveSer(Map<String, String> result) throws Throwable {
+        assertThat(result.size()).isEqualTo(1);
+    }
+
 
     @Quando("^eu pesquiso o preço do frete para o endereço e a lista de produtos e o tipo de entrega$")
     public void euPesquisoOPreçoDoFreteParaOEndereçoEAListaDeProdutosEOTipoDeEntrega() throws Throwable {
@@ -74,9 +105,9 @@ public class UC14Steps {
 
     @Então("^o resultado deve ser$")
     public void oResultadoDeveSer(String cep) throws Throwable {
-
-		wireMockServer.stubFor(get(urlMatching("/ws/" + cep + ".*"))
-				.willReturn(aResponse().withStatus(400)));
+		wireMockServer.stubFor(get(urlMatching("/ws/cep/.*"))
+				.willReturn(aResponse().withStatus(400)
+                        .withBodyFile("resultado-pesquisa-calcprezoprazo-erro001.xml")));
     }
 
     @E("^armazena essa informação no banco de dados$")
@@ -87,24 +118,16 @@ public class UC14Steps {
 
     @Então("^a mensagem de erro dos correios é do código \"([^\"]*)\"$")
     public void aMensagemDeErroDosCorreiosÉDoCódigo(String errorCode) throws Throwable {
-        wireMockServer.stubFor(get(urlMatching("/ws/.*"))
+        wireMockServer.stubFor(get(urlMatching("/ws/cep/.*"))
         		.willReturn(aResponse().withStatus(Integer.valueOf(errorCode))));
-        
+
     }
 
-    @E("^um tipo de entrega \"([^\"]*)\"$")
-    public void umTipoDeEntrega(String tipoEntrega) throws Throwable {
-        tipoEntregaEnum = TipoEntregaEnum.valueOf(tipoEntrega);
-    }
+
 
     @After
     public void tearDown() throws Exception {
         wireMockServer.stop();
     }
 
-    @Então("^o resultado deve ser:$")
-    public void oResultadoDeveSer(Map<String, String> result) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        assertThat(result.size()).isEqualTo(1);
-    }
 }

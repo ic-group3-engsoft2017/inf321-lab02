@@ -8,12 +8,7 @@ Funcionalidade: : UC-14-Calcular-Frete-E-Tempo-De-Entrega
     | 10        | 10        | 7           | 3           |
     | 10        | 10        | 1           | 2           |
     E um tipo de entrega "PACVAREJO"
-    E um CEP válido:
-    | cep | 13083-970 |
-    Quando eu informo o CEP na busca de endereço
-    Então o resultado deve ser o endereço:
-      | Logradouro       | Cidade   |
-      | Rua Carlos Gomes | Campinas |
+    E um endereço com CEP "13083-970"
     Quando eu pesquiso o preço do frete para o endereço e a lista de produtos e o tipo de entrega
     Então o resultado deve ser
     | Preço | Prazo |
