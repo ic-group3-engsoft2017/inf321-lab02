@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xmlPrecoPrazo>
+    <Codigo>123</Codigo>
+    <Valor>100</Valor>
+    <PrazoEntrega>100</PrazoEntrega>
+    <ValorMaoPropria>100</ValorMaoPropria>
+    <ValorAvisoRecebimento>50</ValorAvisoRecebimento>
+    <ValorValorDeclarado>50</ValorValorDeclarado>
+    <EntregaDomiciliar>false</EntregaDomiciliar>
+    <EntregaSabado>false</EntregaSabado>
+    <ValorSemAdicionais>100</ValorSemAdicionais>
+    <obsFim/>
+    <DataMaxEntrega>100</DataMaxEntrega>
+    <HoraMaxEntrega>0</HoraMaxEntrega>
+</xmlPrecoPrazo>
