@@ -27,8 +27,7 @@ public class Endereco {
 
 	@XmlElement(name = "gia")
 	private String gia;
-	
-	@XmlElement(name = "erro")
+
 	private String erro;
 
 	public String getCep() {
@@ -63,6 +62,7 @@ public class Endereco {
 		return gia;
 	}
 	
+	@XmlElement(name = "erro")
 	public String getErro() {
 		return erro;
 	}

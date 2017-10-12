@@ -37,7 +37,7 @@ Funcionalidade: Buscar Endereço
     Serviço indisponivel
     """
     
-   Cenário: Campo de busca de CEP vazio
+  Cenário: Campo de busca de CEP vazio
     Dado um CEP vazio:
       | cep | 0 |
     Quando eu informo o CEP vazio
