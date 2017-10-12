@@ -26,8 +26,7 @@ Funcionalidade: : UC-14-Calcular-Frete-E-Tempo-De-Entrega
     E um CEP inválido:
       | cep | 00000-970 |
     Quando eu informo o CEP na busca de endereço
-    Então o resultado deve ser:
-      | MensagemdeErro       | "CEP inválido"   |
+    Então o resultado deve ser erro
 
   Cenario: Fluxo Alternativo A - Erro na API do correio
     Dado Lista de Produtos:
@@ -39,8 +38,7 @@ Funcionalidade: : UC-14-Calcular-Frete-E-Tempo-De-Entrega
     E um CEP válido:
       | cep | 00000-970 |
     Quando eu informo o CEP na busca de endereço
-    Então o resultado deve ser:
-      | MensagemdeErro       | "Tente novamente"   |
+    Então o resultado deve ser erro
 
   Cenario: Fluxo Alternativo B1
     Dado Lista de Produtos:
@@ -56,7 +54,7 @@ Funcionalidade: : UC-14-Calcular-Frete-E-Tempo-De-Entrega
       | Logradouro       | Cidade   |
       | Rua Carlos Gomes | Campinas |
     Quando eu pesquiso o preço do frete para o endereço e a lista de produtos e o tipo de entrega
-    Então a mensagem de erro dos correios é do código "400"
+    Então o resultado deve ser erro
 
   Cenario: Fluxo Alternativo B2
     Dado Lista de Produtos:
@@ -72,4 +70,4 @@ Funcionalidade: : UC-14-Calcular-Frete-E-Tempo-De-Entrega
       | Logradouro       | Cidade   |
       | Rua Carlos Gomes | Campinas |
     Quando eu pesquiso o preço do frete para o endereço e a lista de produtos e o tipo de entrega
-    Então a mensagem de erro dos correios é do código "500"
+    Então o resultado deve ser erro

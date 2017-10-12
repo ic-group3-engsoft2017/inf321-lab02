@@ -1,25 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-    <soap12:Body>
-        <CalcPrecoPrazoResponse xmlns="http://tempuri.org/">
-            <CalcPrecoPrazoResult>
-                <Servicos>
-                    <cServico>
-                        <Codigo>123</Codigo>
-                        <Valor>R$150,00</Valor>
-                        <PrazoEntrega>2017/12/31</PrazoEntrega>
-                        <ValorMaoPropria>R$100,00</ValorMaoPropria>
-                        <ValorAvisoRecebimento>R$20,00</ValorAvisoRecebimento>
-                        <ValorValorDeclarado>R$15,00</ValorValorDeclarado>
-                        <EntregaDomiciliar>nao</EntregaDomiciliar>
-                        <EntregaSabado>nao</EntregaSabado>
-                        <ValorSemAdicionais>R$95,00</ValorSemAdicionais>
-                        <obsFim></obsFim>
-                        <DataMaxEntrega>2017/12/31</DataMaxEntrega>
-                        <HoraMaxEntrega>12:31:30</HoraMaxEntrega>
-                    </cServico>
-                </Servicos>
-            </CalcPrecoPrazoResult>
-        </CalcPrecoPrazoResponse>
-    </soap12:Body>
-</soap12:Envelope>
+<xmlPrecoPrazo>
+    <Codigo>123</Codigo>
+    <Valor>100</Valor>
+    <PrazoEntrega>100</PrazoEntrega>
+    <ValorMaoPropria>100</ValorMaoPropria>
+    <ValorAvisoRecebimento>50</ValorAvisoRecebimento>
+    <ValorValorDeclarado>50</ValorValorDeclarado>
+    <EntregaDomiciliar>false</EntregaDomiciliar>
+    <EntregaSabado>false</EntregaSabado>
+    <ValorSemAdicionais>100</ValorSemAdicionais>
+    <obsFim/>
+    <DataMaxEntrega>100</DataMaxEntrega>
+    <HoraMaxEntrega>0</HoraMaxEntrega>
+</xmlPrecoPrazo>
