@@ -49,7 +49,7 @@ public class ConsultaEntregaStep {
 		ConsultaEntregaDAO = Mockito.mock(ConsultaEntregaDAO.class);
 		ConsultaEntrega = new ConsultaEntrega(ConsultaEntregaDAO);
 
-		// Configuração do Mokito
+		// Configuraï¿½ï¿½o do Mokito
 		wireMockServer = new WireMockServer(9876);
 		wireMockServer.start();
 		MockitoAnnotations.initMocks(this);
@@ -70,9 +70,9 @@ public class ConsultaEntregaStep {
 	}
 
 	@Given("^Eu tenho um Codigo de rastreio invalido$")
-	public void eu_tenho_codigo_rastreio_invalido(Map<String, String> map) throws Throwable {
+	public void eu_tenho_codigo_rastreio_invalido(String codigorastreio) throws Throwable {
 
-		codigorastreio = map.get("codigorastreio");
+		
 		wireMockServer.stubFor(get(urlMatching("/ws/" + codigorastreio + ".*")).willReturn(aResponse().withStatus(400)
 				.withHeader("Content-Type", "text/xml").withBodyFile("resultado-pesquisa-ConsultaEntrega_BAD.xml")));
 
