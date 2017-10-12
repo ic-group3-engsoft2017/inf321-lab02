@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cResultado xmlns="http://tempuri.org/">
+    <Servicos>
+        <cServico>
+            <Codigo>0</Codigo>
+            <Valor>0</Valor>
+            <PrazoEntrega/>
+            <ValorMaoPropria/>
+            <ValorAvisoRecebimento/>
+            <ValorValorDeclarado/>
+            <EntregaDomiciliar/>
+            <EntregaSabado/>
+            <Erro>554</Erro>
+            <MsgErro>CEP inválido</MsgErro>
+            <ValorSemAdicionais/>
+            <obsFim/>
+            <DataMaxEntrega/>
+            <HoraMaxEntrega/>
+        </cServico>
+    </Servicos>
+</cResultado>

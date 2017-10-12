@@ -20,6 +20,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mortbay.jetty.HttpStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,11 +54,9 @@ public class UC14Steps {
 
     @Before
     public void setup() throws Exception {
+        MockitoAnnotations.initMocks(this);
         wireMockServer = new WireMockServer(9875);
         wireMockServer.start();
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(configuration.getBuscarEnderecoUrl()).thenReturn("http://localhost:9875/ws/cep");
-        MockitoAnnotations.initMocks(this);
         when(configuration.getConsultaPrecoPrazoUrl()).thenReturn("http://localhost:9875/ws/calcprecoprazo");
     }
 
@@ -74,7 +73,8 @@ public class UC14Steps {
                     Double.valueOf(prodValues.get(0)),
                     Double.valueOf(prodValues.get(1)),
     				Double.valueOf(prodValues.get(2)),
-                    Double.valueOf(prodValues.get(3)));
+                    Double.valueOf(prodValues.get(3))
+            );
         	produtoList.add(produto);
     	}
         assertThat(produtoList.size()).isEqualTo(3);
@@ -94,26 +94,25 @@ public class UC14Steps {
 
     @Então("^o resultado deve ser:$")
     public void oResultadoDeveSer(Map<String, String> result) throws Throwable {
-        assertThat(result.size()).isEqualTo(1);
+        wireMockServer.stubFor(get(urlMatching("/ws/calcprecoprazo/.*"))
+                .willReturn(aResponse().withStatus(554)
+                        .withBodyFile("resultado-pesquisa-calcprezoprazo-erro001.xml")));
+        PrecoPrazo precoPrazo = freteService.getPrecoPrazo(endereco, produtoList);
+        assertThat(precoPrazo.getErro()).isEqualTo(result.get("MensagemDeErro"));
     }
 
 
     @Quando("^eu pesquiso o preço do frete para o endereço e a lista de produtos e o tipo de entrega$")
     public void euPesquisoOPreçoDoFreteParaOEndereçoEAListaDeProdutosEOTipoDeEntrega() throws Throwable {
+        wireMockServer.stubFor(get(urlMatching("/ws/calcprecoprazo/.*"))
+                .willReturn(aResponse().withStatus(554)
+                        .withBodyFile("resultado-pesquisa-calcprezoprazo-success.xml")));
         precoPrazo = freteService.getPrecoPrazo(endereco, produtoList);
-    }
-
-    @Então("^o resultado deve ser$")
-    public void oResultadoDeveSer(String cep) throws Throwable {
-		wireMockServer.stubFor(get(urlMatching("/ws/cep/.*"))
-				.willReturn(aResponse().withStatus(400)
-                        .withBodyFile("resultado-pesquisa-calcprezoprazo-erro001.xml")));
     }
 
     @E("^armazena essa informação no banco de dados$")
     public void armazenaEssaInformaçãoNoBancoDeDados() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        freteService.getPrecoPrazo(endereco, produtoList);
+
     }
 
     @Então("^a mensagem de erro dos correios é do código \"([^\"]*)\"$")
@@ -123,11 +122,14 @@ public class UC14Steps {
 
     }
 
-
+    @Então("^o resultado deve ser o preco e prazo$")
+    public void oResultadoDeveSerOPrecoEPrazo(Map<String, String> result) throws Throwable {
+        assertThat(precoPrazo.getPrazoEntrega()).isEqualTo(result.get("Prazo"));
+        assertThat(precoPrazo.getValor()).isEqualTo(result.get("Preco"));
+    }
 
     @After
     public void tearDown() throws Exception {
         wireMockServer.stop();
     }
-
 }
