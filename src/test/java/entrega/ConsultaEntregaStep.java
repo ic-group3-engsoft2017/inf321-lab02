@@ -19,10 +19,12 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import br.unicamp.bookstore.*;
 import br.unicamp.bookstore.dao.ConsultaEntregaDAO;
 import br.unicamp.bookstore.service.BuscaStatusEntregaService;
+import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import cucumber.api.java.en.Then;
+import cucumber.api.java.pt.E;
 import br.unicamp.bookstore.model.*;
 
 public class ConsultaEntregaStep {
@@ -41,9 +43,7 @@ public class ConsultaEntregaStep {
 	
 	private Rastreio Rastreio;
 	
-	//private StatusEntregaEnum statusentrega;
-	
-	private br.unicamp.bookstore.ConsultaEntrega ConsultaEntrega;
+	private ConsultaEntrega ConsultaEntrega;
 
 	private Throwable throwable;
 
@@ -59,41 +59,40 @@ public class ConsultaEntregaStep {
 		Mockito.when(configuration.getStatusEntregaUrl()).thenReturn("http://localhost:9876/ws");
 
 		codigorastreio = null;
-		this.Rastreio = new Rastreio("123","Entregue");
-
+		this.Rastreio = new Rastreio("123","Entregue");		
 	}
 
 	@Given("^Eu tenho um Codigo de rastreio valido$")
-	public void eu_tenho_codigo_rastreio_valido() throws Throwable {
-
-		String codigoRastreio = "";
-
-		wireMockServer.stubFor(get(urlMatching("/ws/" + codigoRastreio + ".*")).willReturn(aResponse().withStatus(200)
+	public void eu_tenho_codigo_rastreio_valido(String codigorastreio) throws Throwable {
+		
+		wireMockServer.stubFor(get(urlMatching("/ws/" + codigorastreio + ".*")).willReturn(aResponse().withStatus(200)
 				.withHeader("Content-Type", "text/xml").withBodyFile("resultado-pesquisa-ConsultaEntrega.xml")));
-
 	}
 
 	@Given("^Eu tenho um Codigo de rastreio invalido$")
 	public void eu_tenho_codigo_rastreio_invalido(String codigorastreio) throws Throwable {
-
-		
+	
 		wireMockServer.stubFor(get(urlMatching("/ws/" + codigorastreio + ".*")).willReturn(aResponse().withStatus(400)
 				.withHeader("Content-Type", "text/xml").withBodyFile("resultado-pesquisa-ConsultaEntrega_BAD.xml")));
-
 	}
 
 	@When("^eu informo o Codigo de rastreio na busca de status de entrega$")
-	public void eu_informo_codigo_rastreio() throws Throwable {
+	public void eu_informo_codigo_rastreio(String codigorastreio) throws Throwable {
 		throwable = catchThrowable(() -> this.Rastreio =  buscaStatusEntregaService.buscar(codigorastreio));
 	}
 
-	@Then("^o resultado deve ser o$")
+	@Then("^o resultado deve ser o:$")
 	public void o_resultado_deve_ser(List<Map<String,String>> resultado) throws Throwable {
 			assertThat(this.Rastreio.getCodigoRastreio()).isEqualTo(resultado.get(0).get("codigorastreio"));
 			assertThat(Rastreio.getStatusEntrega()).isEqualTo(resultado.get(0).get("status"));
 			assertThat(throwable).isNull();
 		
 	}
+	
+	@E("^armazena essa informaÃ§Ã£o no banco de dados$")
+    public void armazenaEssaInformaçãoNoBancoDeDados() throws Throwable {
+
+    }
 
 	@Then("^uma excecao deve ser lancada com a mensagem de erro Codigo de rastreio invalido$")
 	public void uma_execao_deve_ser_lancada_codigo_invalido(String message) throws Throwable {
@@ -105,4 +104,10 @@ public class ConsultaEntregaStep {
 		wireMockServer.stubFor(get(urlMatching("/ws/.*")).willReturn(aResponse().withStatus(200).withFixedDelay(6000)
 				.withBodyFile("resultado-pesquisa-ConsultaEntrega_out.xml")));
 	}
+	
+    @After
+    public void tearDown() throws Exception {
+        wireMockServer.stop();
+    }
+
 }
