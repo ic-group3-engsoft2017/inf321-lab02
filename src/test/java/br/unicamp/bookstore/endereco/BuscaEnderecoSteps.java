@@ -9,6 +9,7 @@ import static org.assertj.core.api.ThrowableAssert.catchThrowable;
 import java.util.List;
 import java.util.Map;
 
+import cucumber.api.PendingException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -87,7 +88,7 @@ public class BuscaEnderecoSteps {
 		throwable = catchThrowable(() -> this.endereco = buscaEnderecoService.buscar(cep));
 	}
 
-	@Ent„o("^o resultado deve ser o endereco:$")
+	@Ent√£o("^o resultado deve ser o endereco:$")
 	public void o_resultado_deve_ser_o_endereco(List<Map<String,String>> resultado)
 			throws Throwable {
 		assertThat(this.endereco.getLogradouro()).isEqualTo(resultado.get(0).get("Logradouro"));
@@ -95,7 +96,7 @@ public class BuscaEnderecoSteps {
 		assertThat(throwable).isNull();
 	}
 
-	@Ent„o("^o retorno deve conter um valor de erro igual a \"([^\"]*)\"$")
+	@Ent√£o("^o retorno deve conter um valor de erro igual a \"([^\"]*)\"$")
 	public void o_retorno_deve_conter_um_valor_de_erro_igual_a(String erro) throws Throwable {
 		assertThat(endereco.getErro()).isEqualTo(erro);
 		assertThat(throwable).isNull();
@@ -107,7 +108,7 @@ public class BuscaEnderecoSteps {
 				.withFixedDelay(6000).withBodyFile("resultado-pesquisa-BuscaEndereco_out.xml")));
 	}
 
-	@Ent„o("^uma excecao deve ser lancada com a mensagem de erro:$")
+	@Ent√£o("^uma excecao deve ser lancada com a mensagem de erro:$")
 	public void uma_excecao_deve_ser_lancada_com_a_mensagem_de_erro(String message) throws Throwable {
 		assertThat(throwable).hasMessage(message);
 	}

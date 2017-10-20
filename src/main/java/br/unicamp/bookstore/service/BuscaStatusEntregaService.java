@@ -7,8 +7,8 @@ public class BuscaStatusEntregaService {
 	
 	  private Configuracao configuracao;
 
-	  public StatusEntregaEnum buscar(String statusentrega) throws Exception {
-	    String url = String.format("%s/%s/xml", configuracao.getStatusEntregaUrl(), statusentrega);
+	  public StatusEntregaEnum buscar(String codigoRastreio) throws Exception {
+	    String url = String.format("%s/%s/xml", configuracao.getStatusEntregaUrl(), codigoRastreio);
 	    return new RemoteService().getAndParseXml(url, StatusEntregaEnum.class);
 	  }
 

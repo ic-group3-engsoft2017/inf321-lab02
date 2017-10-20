@@ -9,8 +9,11 @@ Funcionalidade: Consultar Entrega
       | codigorastreio | AA123456789BR |
     Quando eu informo o Codigo de rastreio na busca de status de entrega
     Então o resultado deve ser o:
-      | Codigo de rastreamento       | Status              | Dados Frete | Tempo Entrega
-      | AA123456789BR					       | EntregueComSucesso  |  R$ 22,00   |  3 dias
+      | CodigoDeRastreamento | AA123456789BR |
+      | Status      | EntregueComSucesso  |
+      | DadosFrete  | R$ 22,00   |
+      | Tempo       | 3 dias     |
+
 
   Cenário: Consultar uma entrega com Codigo de rastreamento invalido.
     Dado Eu tenho um Codigo de rastreio invalido:
@@ -22,7 +25,7 @@ Funcionalidade: Consultar Entrega
     """
 
   Cenário: Servico Consulta Status Entrega nao responde
-      Dado um Codigo de rastreio valido:
+      Dado Eu tenho um Codigo de rastreio valido:
       | codigorastreio | AA123456789BR |
     Quando eu informo o Codigo de rastreio na busca de status de entrega
     Então uma excecao deve ser lancada com a mensagem de erro:
