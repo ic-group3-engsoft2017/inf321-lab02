@@ -3,8 +3,10 @@ package entrega;
 import br.unicamp.bookstore.Configuracao;
 import br.unicamp.bookstore.ConsultaEntrega;
 import br.unicamp.bookstore.dao.ConsultaEntregaDAO;
+import br.unicamp.bookstore.model.Rastreio;
 import br.unicamp.bookstore.service.BuscaStatusEntregaService;
 import com.github.tomakehurst.wiremock.WireMockServer;
+import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.E;
@@ -24,7 +26,7 @@ import static org.assertj.core.api.ThrowableAssert.catchThrowable;
 
 public class ConsultaEntregaStep {
 
-	public WireMockServer wireMockServer;
+	private WireMockServer wireMockServer;
 
 	@Mock
 	private Configuracao configuration;
@@ -36,7 +38,7 @@ public class ConsultaEntregaStep {
 
 	private String codigorastreio;
 	
-	private Rastreio Rastreio;
+	private Rastreio rastreio;
 	
 	private ConsultaEntrega ConsultaEntrega;
 
@@ -54,7 +56,7 @@ public class ConsultaEntregaStep {
 		Mockito.when(configuration.getStatusEntregaUrl()).thenReturn("http://localhost:9876/ws");
 
 		codigorastreio = null;
-		this.Rastreio = new Rastreio("123","Entregue");
+		this.rastreio = new Rastreio("123","Entregue");
 	}
 
 	@Dado("^Eu tenho um Codigo de rastreio valido$")
@@ -75,7 +77,7 @@ public class ConsultaEntregaStep {
 
 	@Quando("^eu informo o Codigo de rastreio na busca de status de entrega$")
 	public void eu_informo_codigo_rastreio() throws Throwable {
-		throwable = catchThrowable(() -> this.statusentrega = buscaStatusEntregaService.buscar(codigorastreio));
+		throwable = catchThrowable(() -> this.rastreio = buscaStatusEntregaService.buscar(codigorastreio));
 	}
 
 	@Então("^uma excecao deve ser lancada com a mensagem de erro Codigo de rastreio invalido$")
@@ -85,15 +87,15 @@ public class ConsultaEntregaStep {
 
     @Então("^o resultado deve ser o:$")
     public void o_resultado_deve_ser(List<Map<String,String>> resultado) throws Throwable {
-        assertThat(this.Rastreio.getCodigoRastreio()).isEqualTo(resultado.get(0).get("codigorastreio"));
-        assertThat(Rastreio.getStatusEntrega()).isEqualTo(resultado.get(0).get("status"));
+        assertThat(rastreio.getCodigoRastreio()).isEqualTo(resultado.get(0).get("codigorastreio"));
+        assertThat(rastreio.getStatusEntrega()).isEqualTo(resultado.get(0).get("status"));
         assertThat(throwable).isNull();
 
     }
 
     @E("^armazena essa informação no banco de dados$")
-    public void armazenaEssaInforma��oNoBancoDeDados() throws Throwable {
-
+    public void armazenaEssaInformaçãoNoBancoDeDados() throws Throwable {
+		//not implemented
     }
 
 	@Então("^ uma excecao deve ser lancada com a mensagem de erro Servico indisponivel$")
