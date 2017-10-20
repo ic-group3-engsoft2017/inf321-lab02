@@ -10,25 +10,19 @@ Funcionalidade: Consultar Entrega
     Quando eu informo o Codigo de rastreio na busca de status de entrega
     Então o resultado deve ser o:
       | CodigoDeRastreamento | AA123456789BR |
-      | Status      | EntregueComSucesso  |
+      | Status      | Sucesso  |
       | DadosFrete  | R$ 22,00   |
       | Tempo       | 3 dias     |
-    E armazena essa informaÃ§Ã£o no banco de dados
+    E armazena essa informação no banco de dados
 
   Cenário: Consultar uma entrega com Codigo de rastreamento invalido.
     Dado Eu tenho um Codigo de rastreio invalido:
       | codigorastreio | 123 |
     Quando eu informo o Codigo de rastreio na busca de status de entrega  
-    Então uma excecao deve ser lancada com a mensagem de erro:
-    """
-    Codigo de rastreio invalido
-    """
+    Então uma excecao deve ser lancada com erro "Codigo de rastreio invalido"
 
   Cenário: Servico Consulta Status Entrega nao responde
       Dado Eu tenho um Codigo de rastreio valido:
       | codigorastreio | AA123456789BR |
     Quando eu informo o Codigo de rastreio na busca de status de entrega
-    Então uma excecao deve ser lancada com a mensagem de erro:
-    """
-    Servico indisponivel
-    """
+    Então uma excecao deve ser lancada com erro "Servico indisponivel"

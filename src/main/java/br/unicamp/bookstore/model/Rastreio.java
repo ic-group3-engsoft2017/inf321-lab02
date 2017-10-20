@@ -15,14 +15,12 @@ public class Rastreio {
 	return CodigoRastreio;
 }
 
+	public void setCodigoRastreio(String codigoRastreio) {
+		CodigoRastreio = codigoRastreio;
+	}
 
-	
-
-public void setCodigoRastreio(String codigoRastreio) {
-	CodigoRastreio = codigoRastreio;
-}
-
-
+	public Rastreio() {
+	}
 
 	public Rastreio(String codigoRastreio, String statusEntrega) {
 		// TODO Auto-generated constructor stub
@@ -30,22 +28,14 @@ public void setCodigoRastreio(String codigoRastreio) {
 		this.StatusEntrega = statusEntrega;
 	}
 
-	
-	//public enum StatusEntregaEnum {
-	//	A_ENVIAR("0"),
-	//	EM_ANDAMENTO("1"),
-	//	ENTREGUE("2");
-		
-
-		
-		public void setStatusEntregaEnum(String statusentrega) {
-			this.StatusEntrega = statusentrega;
-		}
-		
-		public String getStatusEntrega() {
-			return this.StatusEntrega;
+	public void setStatusEntregaEnum(String statusentrega) {
+		this.StatusEntrega = statusentrega;
 	}
+		
+	public String getStatusEntrega() {
+		return this.StatusEntrega;
 	}
+}
 
 
 
