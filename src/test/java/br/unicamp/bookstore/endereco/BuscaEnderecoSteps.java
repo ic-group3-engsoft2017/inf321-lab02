@@ -9,6 +9,7 @@ import static org.assertj.core.api.ThrowableAssert.catchThrowable;
 import java.util.List;
 import java.util.Map;
 
+import cucumber.api.PendingException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -25,7 +26,7 @@ import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.E;
-import cucumber.api.java.pt.Então;
+import cucumber.api.java.pt.*;
 import cucumber.api.java.pt.Quando;
 
 public class BuscaEnderecoSteps {
@@ -61,14 +62,14 @@ public class BuscaEnderecoSteps {
 		wireMockServer.stop();
 	}
 
-	@Dado("^um CEP válido:$")
+	@Dado("^um CEP valido:$")
 	public void eu_possuo_um_CEP_valido(Map<String, String> map) throws Throwable {
 		cep = map.get("cep");
 		wireMockServer.stubFor(get(urlMatching("/ws/"+ cep + ".*")).willReturn(aResponse().withStatus(200)
 				.withHeader("Content-Type", "text/xml").withBodyFile("resultado-pesquisa-BuscaEndereco.xml")));
 	}
 
-	@Dado("^um CEP não existente:$")
+	@Dado("^um CEP nao existente:$")
 	public void um_CEP_nao_existente(Map<String, String> map) throws Throwable {
 		cep = map.get("cep");
 		wireMockServer.stubFor(get(urlMatching("/ws/" + cep + ".*")).willReturn(aResponse().withStatus(200)
@@ -76,7 +77,7 @@ public class BuscaEnderecoSteps {
 
 	}
 
-	@Dado("^um CEP inválido:")
+	@Dado("^um CEP invalido:")
 	public void um_CEP_invalido(Map<String, String> map) throws Throwable {
 		cep = map.get("cep");
 		wireMockServer.stubFor(get(urlMatching("/ws/" + cep + ".*"))
@@ -84,12 +85,12 @@ public class BuscaEnderecoSteps {
 						.withBodyFile("resultado-pesquisa-BuscaEndereco_BAD.xml")));
 	}
 
-	@Quando("^eu informo o CEP na busca de endereço$")
+	@Quando("^eu informo o CEP na busca de endereco$")
 	public void eu_informo_o_CEP_na_busca_de_endereco() throws Throwable {
 		throwable = catchThrowable(() -> this.endereco = buscaEnderecoService.buscar(cep));
 	}
 
-	@Então("^o resultado deve ser o endereço:$")
+	@Então("^o resultado deve ser o endereco:$")
 	public void o_resultado_deve_ser_o_endereco(List<Map<String,String>> resultado)
 			throws Throwable {
 		assertThat(this.endereco.getLogradouro()).isEqualTo(resultado.get(0).get("Logradouro"));
@@ -103,13 +104,13 @@ public class BuscaEnderecoSteps {
 		assertThat(throwable).isNull();
 	}
 
-	@E("^o serviço ViaCep não esta respondendo$")
+	@E("^o servico ViaCep nao esta respondendo$")
 	public void o_servico_via_cep_nao_esta_respondendo() throws Throwable {
 		wireMockServer.stubFor(get(urlMatching("/ws/.*")).willReturn(aResponse().withStatus(200)
 				.withFixedDelay(6000).withBodyFile("resultado-pesquisa-BuscaEndereco_out.xml")));
 	}
 
-	@Então("^uma exceção deve ser lançada com a mensagem de erro:$")
+	@Então("^uma excecao deve ser lancada com a mensagem de erro:$")
 	public void uma_excecao_deve_ser_lancada_com_a_mensagem_de_erro(String message) throws Throwable {
 		assertThat(throwable).hasMessage(message);
 	}

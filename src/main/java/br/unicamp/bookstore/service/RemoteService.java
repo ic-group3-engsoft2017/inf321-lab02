@@ -51,13 +51,15 @@ public <T> T getAndParseXml(String endpointUrl, Class<T> xmlClass) throws Except
     try {
       DocumentBuilder builder = factory.newDocumentBuilder();
       if(((HttpURLConnection) connection).getResponseCode() == 400) {
-    	throw new Exception("O CEP informado é invalido");  
+    	throw new Exception("Codigo de rastreio invalido");
+      } else if(((HttpURLConnection) connection).getResponseCode() == 500) {
+        throw new Exception("Servico indisponivel");
       }
       return builder.parse(connection.getInputStream());
     } catch (ParserConfigurationException | SAXException e) {
       throw new Exception(e);
     } catch (SocketTimeoutException e) {
-      throw new Exception("Serviço indisponivel");
+      throw new Exception("Servico indisponivel");
     }
   }
 
@@ -72,7 +74,7 @@ public <T> T getAndParseXml(String endpointUrl, Class<T> xmlClass) throws Except
       connection.setReadTimeout(TIMEOUT);
       return connection;
     } catch (Exception e) {
-      throw new Exception("Serviço indisponivel");
+      throw new Exception("Servico indisponivel");
     }
   }
 
@@ -92,7 +94,7 @@ public <T> T getAndParseXml(String endpointUrl, Class<T> xmlClass) throws Except
       outStream.close();
       return connection;
     } catch (Exception e) {
-      throw new Exception("Serviço indisponivel");
+      throw new Exception("ServiCo indisponivel");
     }
   }
 
