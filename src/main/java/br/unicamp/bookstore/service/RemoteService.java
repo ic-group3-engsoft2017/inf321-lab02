@@ -13,6 +13,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.http.client.HttpResponseException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -51,7 +52,9 @@ public <T> T getAndParseXml(String endpointUrl, Class<T> xmlClass) throws Except
     try {
       DocumentBuilder builder = factory.newDocumentBuilder();
       if(((HttpURLConnection) connection).getResponseCode() == 400) {
-    	throw new Exception("O CEP informado é invalido");  
+    	throw new HttpResponseException(((HttpURLConnection) connection).getResponseCode(), "Bad Request");
+      } else if(((HttpURLConnection) connection).getResponseCode() == 500) {
+        throw new Exception("Serviço indisponivel");
       }
       return builder.parse(connection.getInputStream());
     } catch (ParserConfigurationException | SAXException e) {
