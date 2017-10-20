@@ -96,7 +96,7 @@ public class ConsultaEntregaStep {
 	@Então("^ uma excecao deve ser lancada com a mensagem de erro Servico indisponivel$")
 	public void uma_execao_deve_ser_lancada_servico_indisponivel() throws Throwable {
 		wireMockServer.stubFor(get(urlMatching("/ws/.*")).willReturn(aResponse().withStatus(500).withFixedDelay(6000)
-				.withBody("Servico indisponivel")));
+				.withBody("Serviço indisponivel")));
 	}
 
 	@Dado("^Eu tenho um Codigo de rastreio valido:$")
@@ -120,6 +120,6 @@ public class ConsultaEntregaStep {
 	@E("^o servidor demora a responder$")
 	public void oServidorDemoraAResponder() throws Throwable {
 		wireMockServer.stubFor(get(urlMatching("/ws/.*")).willReturn(aResponse().withStatus(500).withFixedDelay(100000)
-				.withBody("Servico indisponivel")));
+				.withBody("Serviço indisponivel")));
 	}
 }

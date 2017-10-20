@@ -60,7 +60,7 @@ public <T> T getAndParseXml(String endpointUrl, Class<T> xmlClass) throws Except
     } catch (ParserConfigurationException | SAXException e) {
       throw new Exception(e);
     } catch (SocketTimeoutException e) {
-      throw new Exception("Servico indisponivel");
+      throw new Exception("Serviço indisponivel");
     }
   }
 
@@ -75,7 +75,7 @@ public <T> T getAndParseXml(String endpointUrl, Class<T> xmlClass) throws Except
       connection.setReadTimeout(TIMEOUT);
       return connection;
     } catch (Exception e) {
-      throw new Exception("Servico indisponivel");
+      throw new Exception("Serviço indisponivel");
     }
   }
 
