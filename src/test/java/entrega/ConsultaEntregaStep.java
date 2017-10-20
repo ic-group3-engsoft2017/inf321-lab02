@@ -78,7 +78,6 @@ public class ConsultaEntregaStep {
 
 	@Quando("^eu informo o Codigo de rastreio na busca de status de entrega$")
 	public void eu_informo_codigo_rastreio() throws Throwable {
-
 		throwable = catchThrowable(() -> this.rastreio = buscaStatusEntregaService.buscar(codigorastreio));
 	}
 
@@ -116,5 +115,11 @@ public class ConsultaEntregaStep {
 	public void umaExcecaoDeveSerLancadaComErro(String erroMessage) throws Throwable {
 		throwable = catchThrowable(() -> buscaStatusEntregaService.buscar(codigorastreio));
 		assertThat(throwable).hasMessage(erroMessage);
+	}
+
+	@E("^o servidor demora a responder$")
+	public void oServidorDemoraAResponder() throws Throwable {
+		wireMockServer.stubFor(get(urlMatching("/ws/.*")).willReturn(aResponse().withStatus(500).withFixedDelay(100000)
+				.withBody("Servico indisponivel")));
 	}
 }

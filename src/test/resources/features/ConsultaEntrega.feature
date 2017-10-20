@@ -25,4 +25,5 @@ Funcionalidade: Consultar Entrega
       Dado Eu tenho um Codigo de rastreio valido:
       | codigorastreio | AA123456789BR |
     Quando eu informo o Codigo de rastreio na busca de status de entrega
+    E o servidor demora a responder
     Então uma excecao deve ser lancada com erro "Servico indisponivel"
