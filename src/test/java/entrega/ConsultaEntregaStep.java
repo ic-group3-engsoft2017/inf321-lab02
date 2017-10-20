@@ -90,7 +90,6 @@ public class ConsultaEntregaStep {
         assertThat(rastreio.getCodigoRastreio()).isEqualTo(resultado.get(0).get("codigorastreio"));
         assertThat(rastreio.getStatusEntrega()).isEqualTo(resultado.get(0).get("status"));
         assertThat(throwable).isNull();
-
     }
 
     @E("^armazena essa informação no banco de dados$")
