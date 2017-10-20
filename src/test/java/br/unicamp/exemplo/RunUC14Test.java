@@ -1,4 +1,4 @@
-package entrega;
+package br.unicamp.exemplo;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
@@ -8,8 +8,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         plugin = { "pretty", "html:target/cucumber" },
         glue = "br.unicamp.bookstore.endereco",
-        features = "classpath:features/ConsultaEntrega.feature"
+        features = "classpath:features/UC14.feature"
 )
-public class ConsultaEntregaTest {
-
+public class RunUC14Test {
 }

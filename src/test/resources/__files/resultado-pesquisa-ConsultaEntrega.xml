@@ -13,4 +13,7 @@
 
 <xmlrastreio>
     <codigorastreio>AA123456789BR</codigorastreio>
+    <status>Sucesso</status>
+    <dadosfrete>R$ 22,00</dadosfrete>
+    <tempoentrega>3 dias</tempoentrega>
 </xmlrastreio>

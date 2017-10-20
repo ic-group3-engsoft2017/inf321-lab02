@@ -13,7 +13,7 @@ Funcionalidade: Consultar Entrega
       | Status      | EntregueComSucesso  |
       | DadosFrete  | R$ 22,00   |
       | Tempo       | 3 dias     |
-
+    E armazena essa informaÃ§Ã£o no banco de dados
 
   Cenário: Consultar uma entrega com Codigo de rastreamento invalido.
     Dado Eu tenho um Codigo de rastreio invalido:

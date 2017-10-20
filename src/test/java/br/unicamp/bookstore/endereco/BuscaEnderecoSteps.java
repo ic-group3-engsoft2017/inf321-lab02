@@ -20,6 +20,8 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import br.unicamp.bookstore.Configuracao;
 import br.unicamp.bookstore.model.Endereco;
 import br.unicamp.bookstore.service.BuscaEnderecoService;
+import cucumber.api.DataTable;
+import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.pt.Dado;
@@ -112,4 +114,25 @@ public class BuscaEnderecoSteps {
 	public void uma_excecao_deve_ser_lancada_com_a_mensagem_de_erro(String message) throws Throwable {
 		assertThat(throwable).hasMessage(message);
 	}
+	
+	@Dado("^um CEP vazio:$")
+	public void um_CEP_vazio(Map<String, String> map) throws Throwable {
+		cep = map.get("cep");
+		wireMockServer.stubFor(get(urlMatching("/ws/" + cep + ".*"))
+				.willReturn(aResponse().withStatus(400).withHeader("Content-Type", "text/xml")
+						.withBodyFile("resultado-pesquisa-BuscaEndereco_EMPTY.xml")));
+						
+	}
+	
+	@Quando("^eu informo o CEP vazio$")
+	public void eu_informo_o_CEP_vazio() throws Throwable {
+		endereco = new Endereco();
+		endereco.setErro("O CEP informado está em branco");
+	}
+	
+	@Então("^um aviso deve ser lançada:$")
+	public void um_aviso_deve_ser_lancada(String message) throws Throwable {
+		assertThat(endereco.getErro()).isEqualTo(message);
+	}
+	
 }
